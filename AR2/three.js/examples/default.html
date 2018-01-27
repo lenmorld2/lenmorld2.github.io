@@ -121,6 +121,7 @@
 	//		add an object in the scene
 	//////////////////////////////////////////////////////////////////////////////////
 
+/*******************************/
 
 	var markerScene = new THREE.Scene()
 	markerGroup.add(markerScene)
@@ -128,26 +129,53 @@
 	var mesh = new THREE.AxisHelper()
 	markerScene.add(mesh)
 
-	// add a torus knot
-	var geometry	= new THREE.CubeGeometry(1,1,1);
-	var material	= new THREE.MeshNormalMaterial({
-		transparent : true,
-		opacity: 0.5,
-		side: THREE.DoubleSide
-	});
-	var mesh	= new THREE.Mesh( geometry, material );
-	mesh.position.y	= geometry.parameters.height/2
-	markerScene.add(mesh)
+	// create some geometry - this is how you create some square
+// geometry using the BoxGeometry method
+var geometry = new THREE.BoxGeometry( 20, 20, 20);
+// create a material
+var material = new THREE.MeshNormalMaterial();
+// add the geometry to the mesh - and apply the material to it
+var cube = new THREE.Mesh( geometry, material );
+markerScene.add( cube );
 
+
+// rotate cube
+cube.rotation.x = 0.45;
+cube.rotation.y = -0.25;
+
+// shift cube on the x axis
+cube.position.x = -30;
+
+camera.position.z = 100;
+
+
+var light = new THREE.PointLight( 0xFFFF00 );
+light.position.set( 10, 0, 25 );
+markerScene.add( light );
+
+
+/*******************************/
+
+	// // add a torus knot
+	// var geometry	= new THREE.CubeGeometry(1,1,1);
+	// var material	= new THREE.MeshNormalMaterial({
+	// 	transparent : true,
+	// 	opacity: 0.5,
+	// 	side: THREE.DoubleSide
+	// });
+	// var mesh	= new THREE.Mesh( geometry, material );
+	// mesh.position.y	= geometry.parameters.height/2
+	// markerScene.add(mesh)
+	//
 	// var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
 	// var material	= new THREE.MeshNormalMaterial();
 	// var mesh	= new THREE.Mesh( geometry, material );
 	// mesh.position.y	= 0.5
 	// markerScene.add( mesh );
-
-	onRenderFcts.push(function(delta){
-		mesh.rotation.x += delta * Math.PI
-	})
+	//
+	// onRenderFcts.push(function(delta){
+	// 	mesh.rotation.x += delta * Math.PI
+	// })
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		render the whole thing on the page
