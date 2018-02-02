@@ -66,11 +66,11 @@
 <body>
 <div id="info">
     <span id="image_url">haha</span>
-    <span class="title">Boilerplate scene</span><br/>
-    <span class="links">
-      <a href="https://github.com/google-ar/three.ar.js">three.ar.js</a> -
-      <a href="https://developers.google.com/ar/develop/web/getting-started#examples">examples</a>
-    </span>
+    <!--<span class="title">Boilerplate scene</span><br/>-->
+    <!--<span class="links">-->
+      <!--<a href="https://github.com/google-ar/three.ar.js">three.ar.js</a> - -->
+      <!--<a href="https://developers.google.com/ar/develop/web/getting-started#examples">examples</a>-->
+    <!--</span>-->
 </div>
 <script src="../third_party/three.js/three.js"></script>
 <script src="../third_party/three.js/VRControls.js"></script>
@@ -175,7 +175,7 @@ function update() {
 
     setTimeout(function () {
         var dataURL = canvas.toDataURL();
-        document.getElementById('image_url').innerHTML = dataURL.slice(0,10);
+        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
 //        var img = new Image();
 //        img.src = dataURL;
 //        document.body.appendChild(img);
