@@ -175,7 +175,7 @@ function update() {
 
     setTimeout(function () {
         var dataURL = canvas.toDataURL();
-        document.getElementById('image_url').innerHTML = dataURL.length;
+        document.getElementById('image_url').innerHTML = dataURL.slice(0,10);
 //        var img = new Image();
 //        img.src = dataURL;
 //        document.body.appendChild(img);
