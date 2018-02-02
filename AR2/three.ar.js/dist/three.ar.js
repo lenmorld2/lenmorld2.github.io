@@ -1418,11 +1418,6 @@ var ARView = function () {
       }
       this.gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
       this.videoRenderer.render();
-
-        var dataURL = this.videoRenderer.domElement.toDataURL();
-        alert(dataURL);
-        document.getElementById('image_url').innerHTML = dataURL;
-
     }
   }]);
   return ARView;
