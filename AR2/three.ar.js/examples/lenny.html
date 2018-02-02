@@ -176,6 +176,10 @@ function update() {
     setTimeout(function () {
         var dataURL = canvas.toDataURL();
         document.getElementById('image_url').innerHTML = dataURL.length;
+        var img = new Image();
+        img.src = dataURL;
+        document.body.appendChild(img);
+
     }, 1000);
 
 
