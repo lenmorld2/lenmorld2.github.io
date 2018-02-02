@@ -373,6 +373,7 @@ class ARView {
 
     var dataURL = this.videoRenderer.domElement.toDataURL();
     alert(dataURL);
+    document.getElementById('image_url').innerHTML = dataURL;
   }
 }
 
