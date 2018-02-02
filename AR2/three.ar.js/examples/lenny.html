@@ -175,9 +175,9 @@ function update() {
 //    alert(dataURL);
 
     setTimeout(function () {
-//        canvas = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
+        var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
 
-        var dataURL = canvas.toDataURL();
+        var dataURL = canvas1.toDataURL();
 
         document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
         document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
