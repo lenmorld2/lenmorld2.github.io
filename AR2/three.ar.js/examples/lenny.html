@@ -175,10 +175,10 @@ function update() {
 
     setTimeout(function () {
         var dataURL = canvas.toDataURL();
-        document.getElementById('image_url').innerHTML = dataURL;
+        document.getElementById('image_url').innerHTML = dataURL.length;
     }, 1000);
 
-    
+
     // Kick off the requestAnimationFrame to call this function
   // when a new VRDisplay frame is rendered
   vrDisplay.requestAnimationFrame(update);
