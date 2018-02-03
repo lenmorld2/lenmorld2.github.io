@@ -76,9 +76,23 @@
           text-shadow: rgb(87, 70, 196) 3px 0px 0px, rgb(87, 70, 196) 2.83487px 0.981584px 0px, rgb(87, 70, 196) 2.35766px 1.85511px 0px, rgb(87, 70, 196) 1.62091px 2.52441px 0px, rgb(87, 70, 196) 0.705713px 2.91581px 0px, rgb(87, 70, 196) -0.287171px 2.98622px 0px, rgb(87, 70, 196) -1.24844px 2.72789px 0px, rgb(87, 70, 196) -2.07227px 2.16926px 0px, rgb(87, 70, 196) -2.66798px 1.37182px 0px, rgb(87, 70, 196) -2.96998px 0.42336px 0px, rgb(87, 70, 196) -2.94502px -0.571704px 0px, rgb(87, 70, 196) -2.59586px -1.50383px 0px, rgb(87, 70, 196) -1.96093px -2.27041px 0px, rgb(87, 70, 196) -1.11013px -2.78704px 0px, rgb(87, 70, 196) -0.137119px -2.99686px 0px, rgb(87, 70, 196) 0.850987px -2.87677px 0px, rgb(87, 70, 196) 1.74541px -2.43999px 0px, rgb(87, 70, 196) 2.44769px -1.73459px 0px, rgb(87, 70, 196) 2.88051px -0.838247px 0px;
 
       }
+
+      #btn-analyze {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100px;
+          height: 30px;
+          color: white;
+          background-color: transparent;
+          border: 1px solid white;
+      }
   </style>
 </head>
 <body>
+
+<button id="btn-analyze" onclick="">Analyze</button>
+
 <div id="results">
     <span id="image_url_3">haha</span>
 </div>
@@ -94,6 +108,7 @@
 </div>
 <script src="../third_party/three.js/three.js"></script>
 <script src="../third_party/three.js/VRControls.js"></script>
+<script src="../third_party/dat.gui/dat.gui.js"></script>
 <script src="../dist/three.ar.js"></script>
 
 <script src="upload/cloudinary.js"></script>
@@ -102,7 +117,7 @@
 
 
 <script>
-
+    
 var vrDisplay, vrControls, arView;
 var canvas, camera, scene, renderer;
 var BOX_DISTANCE = 1.5;
@@ -128,6 +143,27 @@ THREE.ARUtils.getARDisplay().then(function (display) {
 });
 
 function init() {
+
+    /*** simple button ****/
+        // Initialize the dat.GUI.
+//    var datGUI = new dat.GUI();
+//    gui = new GUI();
+//    datGUI.add(gui, "markerTypeString", ["AR", "QRCODE"]).onFinishChange(function(value) {
+//        if (!vrDisplay) {
+//            return;
+//        }
+//        if (value === "QRCODE") {
+//            gui.markerType = vrDisplay.MARKER_TYPE_QRCODE;
+//        }
+//        else if (value === "AR") {
+//            gui.markerType = vrDisplay.MARKER_TYPE_AR;
+//        }
+//    }).name("Marker type");
+
+    /**********************/
+
+
+
   // Setup the three.js rendering environment
   renderer = new THREE.WebGLRenderer({ alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -200,67 +236,67 @@ function update() {
 //    var dataURL = this.renderer.domElement.toDataURL();
 //    alert(dataURL);
 
-    if (!isUploaded) {
-
-//        setTimeout(function () {
-            // or just use canvas
-//            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
-
-            var dataURL = canvas.toDataURL();
-
-            document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
-            document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
-
-            // upload to Cloudinary
-            uploadFile(dataURL);
-
-//        var img = new Image();
-//        img.src = dataURL;
-//        document.body.appendChild(img);
-//        window.open(dataURL, "image");
-
-//        }, 1000);
-
-        isUploaded = true;
-
-
-        // **** CLARIFAI ****
-
-        var foodModel = "bd367be194cf45149e75f01d59f77ba7";
-        // Clarifai.GENERAL_MODEL
-
-
-        // initialize with your api key. This will also work in your browser via http://browserify.org/
-        const app = new Clarifai.App({
-            apiKey: 'bf2c869d10754199bdb948e07ca7ab63'
-        });
-
-
-        var base64img = dataURL.split("base64,")[1];
-
-
-//        console.log(app);
-
-        // predict the contents of an image by passing in a url
-        app.models.predict(
-            foodModel,
-            {base64: base64img}).then(
-            function(response) {
-//                console.log(response);
-                var results = response.outputs[0].data.concepts;
-                var food_result_0 = results[0].name + "_" + results[0].value;
-//                console.log(results[0].name + "_" + results[0].value);
-                document.getElementById('image_url_3').innerHTML = food_result_0;
-
-            },
-            function(err) {
-                console.error(err);
-                document.getElementById('image_url_3').innerHTML = err;
-            }
-        );
-
-
-    }
+//    if (!isUploaded) {
+//
+////        setTimeout(function () {
+//            // or just use canvas
+////            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
+//
+//            var dataURL = canvas.toDataURL();
+//
+//            document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
+//            document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
+//
+//            // upload to Cloudinary
+//            uploadFile(dataURL);
+//
+////        var img = new Image();
+////        img.src = dataURL;
+////        document.body.appendChild(img);
+////        window.open(dataURL, "image");
+//
+////        }, 1000);
+//
+//        isUploaded = true;
+//
+//
+//        // **** CLARIFAI ****
+//
+//        var foodModel = "bd367be194cf45149e75f01d59f77ba7";
+//        // Clarifai.GENERAL_MODEL
+//
+//
+//        // initialize with your api key. This will also work in your browser via http://browserify.org/
+//        const app = new Clarifai.App({
+//            apiKey: 'bf2c869d10754199bdb948e07ca7ab63'
+//        });
+//
+//
+//        var base64img = dataURL.split("base64,")[1];
+//
+//
+////        console.log(app);
+//
+//        // predict the contents of an image by passing in a url
+//        app.models.predict(
+//            foodModel,
+//            {base64: base64img}).then(
+//            function(response) {
+////                console.log(response);
+//                var results = response.outputs[0].data.concepts;
+//                var food_result_0 = results[0].name + "_" + results[0].value;
+////                console.log(results[0].name + "_" + results[0].value);
+//                document.getElementById('image_url_3').innerHTML = food_result_0;
+//
+//            },
+//            function(err) {
+//                console.error(err);
+//                document.getElementById('image_url_3').innerHTML = err;
+//            }
+//        );
+//
+//
+//    }
 
     // Kick off the requestAnimationFrame to call this function
   // when a new VRDisplay frame is rendered
@@ -306,14 +342,72 @@ function hasGetUserMedia() {
 }
 
 if (hasGetUserMedia()) {
-  alert("good to go!");
+  alert("AR is ready!");
   // Good to go!
 } else {
   alert('getUserMedia() is not supported in your browser');
 }
 
-
 /*******************************/
+
+function analyzeObject() {
+
+//        setTimeout(function () {
+    // or just use canvas
+//            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
+
+    // convert webGL image to base64 representation
+    var dataURL = canvas.toDataURL();
+
+    document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
+    document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
+
+    // upload to Cloudinary
+    uploadFile(dataURL);
+
+//        var img = new Image();
+//        img.src = dataURL;
+//        document.body.appendChild(img);
+//        window.open(dataURL, "image");
+
+//        }, 1000);
+
+    isUploaded = true;
+
+
+    // **** CLARIFAI ****
+
+    var foodModel = "bd367be194cf45149e75f01d59f77ba7";
+    // Clarifai.GENERAL_MODEL
+
+    // initialize with your api key. This will also work in your browser via http://browserify.org/
+    const app = new Clarifai.App({
+        apiKey: 'bf2c869d10754199bdb948e07ca7ab63'
+    });
+
+    var base64img = dataURL.split("base64,")[1];
+
+//        console.log(app);
+
+    // predict the contents of an image by passing in a base64 image
+    app.models.predict(
+        foodModel,
+        {base64: base64img}).then(
+        function(response) {
+//                console.log(response);
+            var results = response.outputs[0].data.concepts;
+            var food_result_0 = results[0].name + "_" + results[0].value;
+//                console.log(results[0].name + "_" + results[0].value);
+            document.getElementById('image_url_3').innerHTML = food_result_0;
+
+        },
+        function(err) {
+            console.error(err);
+            document.getElementById('image_url_3').innerHTML = err;
+        }
+    );
+}
+
 
 
 </script>
