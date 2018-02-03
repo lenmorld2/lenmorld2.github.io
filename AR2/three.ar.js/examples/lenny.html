@@ -100,7 +100,7 @@
     <span id="image_url">haha</span> <br/>
     <span id="image_url_2">haha</span><br/>
 
-    <button id="btn-analyze" onclick="analyzeObject()">Analyze</button>
+    <button id="btn-analyze" onclick="buttonFunc()">Analyze</button>
 
     <!--<span class="title">Boilerplate scene</span><br/>-->
     <!--<span class="links">-->
@@ -235,6 +235,11 @@ function update() {
   renderer.clearDepth();
   renderer.render(scene, camera);
 
+
+  if (!isUploaded) {
+      analyzeObject(canvas);
+  }
+
 //    var dataURL = this.renderer.domElement.toDataURL();
 //    alert(dataURL);
 
@@ -352,14 +357,19 @@ if (hasGetUserMedia()) {
 
 /*******************************/
 
-function analyzeObject() {
+function buttonFunc() {
+
+    isUploaded = false;
+}
+
+function analyzeObject(canvasObj) {
 
 //        setTimeout(function () {
     // or just use canvas
 //            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
 
     // convert webGL image to base64 representation
-    var dataURL = canvas.toDataURL();
+    var dataURL = canvasObj.toDataURL();
 
     document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
     document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
@@ -408,6 +418,8 @@ function analyzeObject() {
             document.getElementById('image_url_3').innerHTML = err;
         }
     );
+
+    isUploaded = true;
 }
 
 
