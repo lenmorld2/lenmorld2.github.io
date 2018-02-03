@@ -85,6 +85,8 @@ var BOX_SIZE = 0.25;
 var BOX_QUANTITY = 6;
 var boxesAdded = false;
 
+var isUploaded = false;
+
 /**
  * Use the `getARDisplay()` utility to leverage the WebVR API
  * to see if there are any AR-capable WebVR VRDisplays. Returns
@@ -170,25 +172,29 @@ function update() {
   renderer.clearDepth();
   renderer.render(scene, camera);
 
-
 //    var dataURL = this.renderer.domElement.toDataURL();
 //    alert(dataURL);
 
-    setTimeout(function () {
-        var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
+    if (!isUploaded) {
 
-        var dataURL = canvas1.toDataURL();
+        setTimeout(function () {
+            // or just use canvas
+            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
 
-        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
-        document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
+            var dataURL = canvas1.toDataURL();
+
+            document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
+            document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
 
 //        var img = new Image();
 //        img.src = dataURL;
 //        document.body.appendChild(img);
 //        window.open(dataURL, "image");
 
-    }, 1000);
+        }, 1000);
 
+        isUploaded = true;
+    }
 
     // Kick off the requestAnimationFrame to call this function
   // when a new VRDisplay frame is rendered
