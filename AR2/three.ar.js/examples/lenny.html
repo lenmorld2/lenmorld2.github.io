@@ -66,7 +66,8 @@
 <body>
 <div id="info">
     <span id="image_url">haha</span> <br/>
-    <span id="image_url_2">haha</span>
+    <span id="image_url_2">haha</span><br/>
+    <span id="image_url_3">haha</span>
     <!--<span class="title">Boilerplate scene</span><br/>-->
     <!--<span class="links">-->
       <!--<a href="https://github.com/google-ar/three.ar.js">three.ar.js</a> - -->
@@ -76,7 +77,11 @@
 <script src="../third_party/three.js/three.js"></script>
 <script src="../third_party/three.js/VRControls.js"></script>
 <script src="../dist/three.ar.js"></script>
+
 <script src="upload/cloudinary.js"></script>
+
+<script src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+
 
 <script>
 
@@ -199,6 +204,44 @@ function update() {
 //        }, 1000);
 
         isUploaded = true;
+
+
+        // **** CLARIFAI ****
+
+        var foodModel = "bd367be194cf45149e75f01d59f77ba7";
+        // Clarifai.GENERAL_MODEL
+
+
+        // initialize with your api key. This will also work in your browser via http://browserify.org/
+        const app = new Clarifai.App({
+            apiKey: 'bf2c869d10754199bdb948e07ca7ab63'
+        });
+
+
+        var base64img = dataURL.split("base64,")[1];
+
+
+//        console.log(app);
+
+        // predict the contents of an image by passing in a url
+        app.models.predict(
+            foodModel,
+            {base64: base64img}).then(
+            function(response) {
+//                console.log(response);
+                var results = response.outputs[0].data.concepts;
+                var food_result_0 = results[0].name + "_" + results[0].value;
+//                console.log(results[0].name + "_" + results[0].value);
+                document.getElementById('image_url_3').innerHTML = food_result_0;
+
+            },
+            function(err) {
+                console.error(err);
+                document.getElementById('image_url_3').innerHTML = err;
+            }
+        );
+
+
     }
 
     // Kick off the requestAnimationFrame to call this function
