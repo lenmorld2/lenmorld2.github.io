@@ -228,7 +228,7 @@ function update() {
   // information applied to our camera (it can take a few seconds),
   // and the camera's Y position is not undefined or 0, create boxes
   if (!boxesAdded && !camera.position.y) {
-    addBoxes();
+//    addBoxes();           // SUPPRESS THE BOXES FOR NOW
   }
 
   // Render our three.js virtual scene
@@ -384,7 +384,7 @@ function analyzeObject(canvasObj) {
 
 //        }, 1000);
 
-    
+
     // **** CLARIFAI ****
 
     var foodModel = "bd367be194cf45149e75f01d59f77ba7";
@@ -418,6 +418,9 @@ function analyzeObject(canvasObj) {
     );
 
     isUploaded = true;
+
+    // TODO: display nutritional info about analyzed food
+    // render in 2d/ 3d
 }
 
 
