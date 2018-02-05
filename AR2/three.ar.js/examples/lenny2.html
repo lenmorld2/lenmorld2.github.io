@@ -122,30 +122,6 @@
 <script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
 
 <script>
-//    function callback() {
-////        console.log("after req");
-//        document.getElementById("image_url_4").innerHTML = "Hello World";
-//    }
-
-    function myFunction() {
-        document.getElementById("demo").innerHTML = "Hello World";
-
-
-        Tesseract.recognize("nutrition.png")
-            .then(function(result){
-//                console.log(result);]
-
-                var calorieLine = result.lines.filter(function(line) {return line.text.includes("Calories") })[0];
-
-                document.getElementById("image_url_4").innerHTML = calorieLine.words[0].text + "_" + calorieLine.words[1].text;
-
-//                callback();
-
-            });
-    }
-</script>
-
-<script>
 
     var vrDisplay, vrControls, arView;
     var canvas, camera, scene, renderer;
@@ -398,8 +374,8 @@
         // convert webGL image to base64 representation
         var dataURL = canvasObj.toDataURL();
 
-        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
-        document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
+//        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
+//        document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
 
         // upload to Cloudinary
         uploadFile(dataURL);
@@ -459,7 +435,7 @@
 
                 var calorieLine = result.lines.filter(function(line) {return line.text.includes("Calories") })[0];
 
-                document.getElementById("image_url_4").innerHTML = calorieLine.words[0].text + "_" + calorieLine.words[1].text;
+                document.getElementById("image_url_2").innerHTML = calorieLine.words[0].text + "_" + calorieLine.words[1].text;
 
 //                callback();
 
