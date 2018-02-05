@@ -367,26 +367,15 @@
 
     function analyzeObject(canvasObj) {
 
-//        setTimeout(function () {
-        // or just use canvas
-//            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
-
         // convert webGL image to base64 representation
         var dataURL = canvasObj.toDataURL();
 
 //        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
 //        document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
 
+        // *** CLOUDINARY ***
         // upload to Cloudinary
-        uploadFile(dataURL);
-
-//        var img = new Image();
-//        img.src = dataURL;
-//        document.body.appendChild(img);
-//        window.open(dataURL, "image");
-
-//        }, 1000);
-
+//        uploadFile(dataURL);
 
         // **** CLARIFAI ****
 
@@ -420,16 +409,15 @@
             }
         );
 
-        isUploaded = true;
-
-
         // TODO: display nutritional info about analyzed food
         // render in 2d/ 3d
 
 
         /***** try OCR with Tesseract ***/
 
-        Tesseract.recognize("nutrition.png")
+        var localImage = "nutrition.png";
+
+        Tesseract.recognize(dataURL)
             .then(function(result){
 //                console.log(result);]
 
@@ -438,9 +426,11 @@
                 document.getElementById("image_url_2").innerHTML = calorieLine.words[0].text + "_" + calorieLine.words[1].text;
 
 //                callback();
-
             });
 
+
+
+        isUploaded = true;
     }
 
 
