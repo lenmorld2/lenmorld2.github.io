@@ -99,7 +99,6 @@
 <div id="info">
     <span id="image_url">haha</span> <br/>
     <span id="image_url_2">haha</span><br/>
-    <span id="image_url_4">haha</span><br/>
 
     <button id="btn-analyze" onclick="buttonFunc()">Analyze</button>
 
@@ -164,6 +163,8 @@
 //    }).name("Marker type");
 
         /**********************/
+
+
 
         // Setup the three.js rendering environment
         renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -234,9 +235,75 @@
         renderer.clearDepth();
         renderer.render(scene, camera);
 
+
         if (!isUploaded) {
             analyzeObject(canvas);
         }
+
+//    var dataURL = this.renderer.domElement.toDataURL();
+//    alert(dataURL);
+
+//    if (!isUploaded) {
+//
+////        setTimeout(function () {
+//            // or just use canvas
+////            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
+//
+//            var dataURL = canvas.toDataURL();
+//
+//            document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
+//            document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
+//
+//            // upload to Cloudinary
+//            uploadFile(dataURL);
+//
+////        var img = new Image();
+////        img.src = dataURL;
+////        document.body.appendChild(img);
+////        window.open(dataURL, "image");
+//
+////        }, 1000);
+//
+//        isUploaded = true;
+//
+//
+//        // **** CLARIFAI ****
+//
+//        var foodModel = "bd367be194cf45149e75f01d59f77ba7";
+//        // Clarifai.GENERAL_MODEL
+//
+//
+//        // initialize with your api key. This will also work in your browser via http://browserify.org/
+//        const app = new Clarifai.App({
+//            apiKey: 'bf2c869d10754199bdb948e07ca7ab63'
+//        });
+//
+//
+//        var base64img = dataURL.split("base64,")[1];
+//
+//
+////        console.log(app);
+//
+//        // predict the contents of an image by passing in a url
+//        app.models.predict(
+//            foodModel,
+//            {base64: base64img}).then(
+//            function(response) {
+////                console.log(response);
+//                var results = response.outputs[0].data.concepts;
+//                var food_result_0 = results[0].name + "_" + results[0].value;
+////                console.log(results[0].name + "_" + results[0].value);
+//                document.getElementById('image_url_3').innerHTML = food_result_0;
+//
+//            },
+//            function(err) {
+//                console.error(err);
+//                document.getElementById('image_url_3').innerHTML = err;
+//            }
+//        );
+//
+//
+//    }
 
         // Kick off the requestAnimationFrame to call this function
         // when a new VRDisplay frame is rendered
@@ -297,15 +364,26 @@
 
     function analyzeObject(canvasObj) {
 
+//        setTimeout(function () {
+        // or just use canvas
+//            var canvas1 = renderer.domElement;     // might have to do this again to make sure canvas ref is updated?
+
         // convert webGL image to base64 representation
         var dataURL = canvasObj.toDataURL();
 
-//        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
-//        document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
+        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
+        document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
 
-        // *** CLOUDINARY ***
         // upload to Cloudinary
-//        uploadFile(dataURL);
+        uploadFile(dataURL);
+
+//        var img = new Image();
+//        img.src = dataURL;
+//        document.body.appendChild(img);
+//        window.open(dataURL, "image");
+
+//        }, 1000);
+
 
         // **** CLARIFAI ****
 
@@ -319,6 +397,8 @@
 
         var base64img = dataURL.split("base64,")[1];
 
+//        console.log(app);
+
         // predict the contents of an image by passing in a base64 image
         app.models.predict(
             foodModel,
@@ -326,19 +406,10 @@
             function(response) {
 //                console.log(response);
                 var results = response.outputs[0].data.concepts;
-                var text = "";
-
-                // collect keyword results
-                for (index in results) {
-                    var food_result = results[index].name + "_" + results[index].value;
-                    text += food_result + "<br/>";
-                }
-
-//                var food_result_0 = results[0].name + "_" + results[0].value;
+                var food_result_0 = results[0].name + "_" + results[0].value;
 //                console.log(results[0].name + "_" + results[0].value);
-//                document.getElementById('image_url_3').innerHTML = food_result_0;
+                document.getElementById('image_url_3').innerHTML = food_result_0;
 
-                document.getElementById('image_url_3').innerHTML = text;
             },
             function(err) {
                 console.error(err);
@@ -346,10 +417,10 @@
             }
         );
 
+        isUploaded = true;
+
         // TODO: display nutritional info about analyzed food
         // render in 2d/ 3d
-
-        isUploaded = true;
     }
 
 
