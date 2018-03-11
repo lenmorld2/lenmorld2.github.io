@@ -176,8 +176,9 @@ function analyzeObject(canvasObj) {
     var dataURL = canvasObj.toDataURL();
     var base64img = dataURL.split("base64,")[1];
 
-
     predictUsingWorkflow(base64img, 10, 0.90, processKeywords);
+
+    isUploaded = true;
 
     // *** CLOUDINARY ***
     // upload to Cloudinary
@@ -210,7 +211,6 @@ function processKeywords(words) {
     // to check for 'accuracy'
 //                var food_result_0 = results[0].name + "_" + results[0].value;
 
-
     if (food_servings.length > 0) {
         // e.g. 'fruit salad'
         // we don't want to individually get nutrition of strawberry, berry, etc.
@@ -218,8 +218,6 @@ function processKeywords(words) {
         // look this up
 
         document.getElementById('nut_info').innerHTML = food_servings[0];
-
-
 
     } else {
         // look up food items, then sum up
@@ -241,6 +239,8 @@ function processKeywords(words) {
     }
 //        console.log("food servings:", getFoodServings(words.food));
 //        console.log("food servings:", getFoodServings(words.general));
+
+
 }
 
 function getCommon(arr1, arr2, attr) {
