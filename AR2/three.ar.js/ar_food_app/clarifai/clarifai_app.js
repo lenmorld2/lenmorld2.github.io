@@ -21,7 +21,6 @@ function predictUsingWorkflow(image, maxConcepts, minPredictionValue, callback )
       minValue: minPredictionValue
     };
 
-
     // predict the contents of an image by passing in an image
     app.workflow.predict( workflow,
         image, configObject).then(
@@ -45,12 +44,16 @@ function predictUsingWorkflow(image, maxConcepts, minPredictionValue, callback )
             // console.log("results:", results);
             // return results;
             callback(results);
-
         },
         function(err) {
             console.error(err);
+
+            var results = {
+                error: err
+            };
+
             // document.getElementById('image_url_3').innerHTML = err;
-            return err;
+            return results;
         }
     );
 }

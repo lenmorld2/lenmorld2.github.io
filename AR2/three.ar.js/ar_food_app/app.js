@@ -177,7 +177,7 @@ function analyzeObject(canvasObj) {
     var base64img = dataURL.split("base64,")[1];
 
     // predictUsingWorkflow(image, maxConcepts, minConfidence, callback)
-    
+
     predictUsingWorkflow({base64: base64img}, 10, 0.90, processKeywords);
 
     isUploaded = true;
@@ -200,12 +200,19 @@ image = 'http://del.h-cdn.co/assets/17/26/980x490/landscape-1498854508-delish-mi
 
 function processKeywords(words) {
 //        console.log("words:", words);
+
+    document.getElementById('extra').innerHTML = 'Processing....';
+
+    if (words.error) {
+        document.getElementById('nut_info').innerHTML = words.error;
+    }
+
     console.log("common:", getCommon(words.food, words.general, "name"));
 
     var food_servings = getFoodServings(words.food);
     food_servings.concat(getFoodServings(words.general));
 
-    console.log("food servings:", food_servings);
+
 
 
     // Display in AR
@@ -214,6 +221,10 @@ function processKeywords(words) {
 //                var food_result_0 = results[0].name + "_" + results[0].value;
 
     if (food_servings.length > 0) {
+        console.log("food servings:", food_servings);
+
+
+
         // e.g. 'fruit salad'
         // we don't want to individually get nutrition of strawberry, berry, etc.
         // if food serving is found, this is priority instead of individual food items
@@ -241,7 +252,6 @@ function processKeywords(words) {
     }
 //        console.log("food servings:", getFoodServings(words.food));
 //        console.log("food servings:", getFoodServings(words.general));
-
 
 }
 

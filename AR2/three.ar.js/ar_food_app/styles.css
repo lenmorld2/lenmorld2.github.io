@@ -58,6 +58,11 @@ canvas {
     color: darkblue;
 }
 
+#results #nut_info_2 {
+    font-size: 12px;
+    color: darkblue;
+}
+
 #btn-analyze {
     /*position: absolute;*/
     /*left: 25%;*/
