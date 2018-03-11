@@ -176,7 +176,9 @@ function analyzeObject(canvasObj) {
     var dataURL = canvasObj.toDataURL();
     var base64img = dataURL.split("base64,")[1];
 
-    predictUsingWorkflow(base64img, 10, 0.90, processKeywords);
+    // predictUsingWorkflow(image, maxConcepts, minConfidence, callback)
+    
+    predictUsingWorkflow({base64: base64img}, 10, 0.90, processKeywords);
 
     isUploaded = true;
 
