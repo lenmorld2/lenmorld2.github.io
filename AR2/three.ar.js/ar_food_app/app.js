@@ -213,11 +213,11 @@ function analyzeObject(canvasObj) {
 //                console.log(results[0].name + "_" + results[0].value);
 //                document.getElementById('image_url_3').innerHTML = food_result_0;
 
-            document.getElementById('image_url_3').innerHTML = text;
+            document.getElementById('nut_info').innerHTML = text;
         },
         function(err) {
             console.error(err);
-            document.getElementById('image_url_3').innerHTML = err;
+            document.getElementById('nut_info').innerHTML = err;
         }
     );
 

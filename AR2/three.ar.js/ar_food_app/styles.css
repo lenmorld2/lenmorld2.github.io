@@ -8,7 +8,9 @@ body {
     -webkit-user-select: none;
     user-select: none;
 }
-#info {
+
+/** controls - bottom **/
+.controls {
     position: absolute;
     left: 50%;
     bottom: 0;
@@ -38,7 +40,6 @@ canvas {
     left: 0;
 }
 #results {
-    font-size: 15px;
     position: absolute;
     left: 10%;
     bottom: 10%;
@@ -53,6 +54,7 @@ canvas {
 }
 
 #results #nut_info {
+    font-size: 12px;
     color: darkblue;
 }
 
