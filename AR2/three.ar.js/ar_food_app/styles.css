@@ -42,7 +42,7 @@ canvas {
 #results {
     position: absolute;
     left: 10%;
-    bottom: 10%;
+    top: 10%;
     transform: translate(-50%, 0);
     margin: 1em;
     z-index: 11;
