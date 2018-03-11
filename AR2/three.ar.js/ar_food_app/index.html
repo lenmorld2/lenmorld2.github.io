@@ -1,0 +1,57 @@
+<!--
+/*
+ * Copyright 2017 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Food AR app</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,
+  minimum-scale=1.0, maximum-scale=1.0">
+    <style rel="stylesheet" type="text/css" href="styles.css"></style>
+</head>
+<body>
+    <div id="results">
+        <span id="image_url_3">haha 12</span>
+    </div>
+    <div id="info">
+        <!--<span id="image_url">haha</span> <br/>-->
+        <!--<span id="image_url_2">haha</span><br/>-->
+        <!--<span id="image_url_4">haha</span><br/>-->
+
+        <button id="btn-analyze" onclick="buttonFunc()">Analyze</button>
+
+        <!--<span class="title">Boilerplate scene</span><br/>-->
+        <!--<span class="links">-->
+        <!--<a href="https://github.com/google-ar/three.ar.js">three.ar.js</a> - -->
+        <!--<a href="https://developers.google.com/ar/develop/web/getting-started#examples">examples</a>-->
+        <!--</span>-->
+    </div>
+
+    <script src="../third_party/three.js/three.js"></script>
+    <script src="../third_party/three.js/VRControls.js"></script>
+    <script src="../third_party/dat.gui/dat.gui.js"></script>
+    <script src="../dist/three.ar.js"></script>
+
+    <script src="upload/cloudinary.js"></script>
+    <script src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+
+    <!-- MY SCRIPTS -->
+    <script src="clarifai/clarifai_app.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
