@@ -56,14 +56,9 @@ function predictUsingWorkflow(image, maxConcepts, minPredictionValue, callback )
 }
 
 
-
-
-
-
 function predictUsingModel(image) {
 
     // response.outputs[0].data.concepts
-
 
       app.models.predict( foodModel,
         image).then(

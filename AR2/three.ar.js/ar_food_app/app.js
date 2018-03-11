@@ -158,10 +158,10 @@ function hasGetUserMedia() {
 }
 
 if (hasGetUserMedia()) {
-    alert("AR is ready!");
+    // alert("AR is ready!");
     // Good to go!
 } else {
-    alert('getUserMedia() is not supported in your browser');
+    document.getElementById('nut_info').innerHTML = 'getUserMedia() is not supported in your browser';
 }
 
 /*******************************/
@@ -174,55 +174,81 @@ function analyzeObject(canvasObj) {
 
     // convert webGL image to base64 representation
     var dataURL = canvasObj.toDataURL();
+    var base64img = dataURL.split("base64,")[1];
 
-//        document.getElementById('image_url').innerHTML = dataURL.slice(0,30);
-//        document.getElementById('image_url_2').innerHTML = dataURL.slice(dataURL.length - 10);
+
+    predictUsingWorkflow(base64img, 10, 0.90, processKeywords);
 
     // *** CLOUDINARY ***
     // upload to Cloudinary
-//        uploadFile(dataURL);
+// uploadFile(dataURL);
 
-    // **** CLARIFAI ****
-
-    var foodModel = "bd367be194cf45149e75f01d59f77ba7";
-    // Clarifai.GENERAL_MODEL
-
-    // initialize with your api key. This will also work in your browser via http://browserify.org/
-    const app = new Clarifai.App({
-        apiKey: 'bf2c869d10754199bdb948e07ca7ab63'
-    });
-
-    var base64img = dataURL.split("base64,")[1];
-
-    // predict the contents of an image by passing in a base64 image
-    app.models.predict(
-        foodModel,
-        {base64: base64img}).then(
-        function(response) {
-//                console.log(response);
-            var results = response.outputs[0].data.concepts;
-            var text = "";
-
-            // collect keyword results
-            for (index in results) {
-                var food_result = results[index].name + "_" + results[index].value;
-                text += food_result + "<br/>";
-            }
-
-//                var food_result_0 = results[0].name + "_" + results[0].value;
-//                console.log(results[0].name + "_" + results[0].value);
-//                document.getElementById('image_url_3').innerHTML = food_result_0;
-
-            document.getElementById('nut_info').innerHTML = text;
-        },
-        function(err) {
-            console.error(err);
-            document.getElementById('nut_info').innerHTML = err;
-        }
-    );
-
-    // TODO: display nutritional info about analyzed food
-    // render in 2d/ 3d
-
-    isUploaded = true;
 }
+
+var food_serving = ['fruit salad', 'pasta'];
+
+//        const image = './food.jpg';       // THIS WONT WORK BECAUSE OF XSRF uploads,
+var image = 'https://samples.clarifai.com/metro-north.jpg';
+image = 'https://i.imgur.com/eTuCPxM.jpg';
+image = 'https://i.imgur.com/r0xlLtK.jpg';          // apple
+image = 'https://i.imgur.com/bQOombb.jpg';          // banana
+image = 'http://del.h-cdn.co/assets/17/26/980x490/landscape-1498854508-delish-mimosa-fruit-salad-3.jpg';    // fruit salad
+//    image = 'https://www.recipetineats.com/wp-content/uploads/2017/05/Bacon-Tomato-Pasta-3-landscape.jpg';  // pasta
+
+function processKeywords(words) {
+//        console.log("words:", words);
+    console.log("common:", getCommon(words.food, words.general, "name"));
+
+    var food_servings = getFoodServings(words.food);
+    food_servings.concat(getFoodServings(words.general));
+
+    console.log("food servings:", food_servings);
+
+
+    // Display in AR
+    // TODO: look for common concepts (or know needed concepts and look for them)
+    // to check for 'accuracy'
+//                var food_result_0 = results[0].name + "_" + results[0].value;
+
+
+    if (food_servings.length > 0) {
+        // e.g. 'fruit salad'
+        // we don't want to individually get nutrition of strawberry, berry, etc.
+        // if food serving is found, this is priority instead of individual food items
+        // look this up
+
+        document.getElementById('nut_info').innerHTML = food_servings[0];
+
+
+
+    } else {
+        // look up food items, then sum up
+
+        // TODO: determine which is better: words.food or words.general
+
+        var text = "";
+        for (index in words.food) {
+            // var food_result = results[index].name + "_" + results[index].value;
+            var food_result = results[index].name;
+            text += food_result + "<br/>";
+        }
+
+        document.getElementById('nut_info').innerHTML = text;
+
+        // TODO: must have a way to determine multiple food items in photo (to get each one)
+        // or just one item that resulted to different concepts (to get only one)
+
+    }
+//        console.log("food servings:", getFoodServings(words.food));
+//        console.log("food servings:", getFoodServings(words.general));
+}
+
+function getCommon(arr1, arr2, attr) {
+    return arr1.filter(function(e) {return (arr2.filter(function(f) {return f[attr] === e[attr] }) ).length > 0 });
+}
+
+function getFoodServings(arr) {
+    return arr.filter(function(e) {return food_serving.includes(e.name) });
+}
+
+// predictUsingWorkflow(image, 10, 0.90, logWords);
