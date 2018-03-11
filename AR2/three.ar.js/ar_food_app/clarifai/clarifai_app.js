@@ -43,6 +43,10 @@ function predictUsingWorkflow(image, maxConcepts, minPredictionValue, callback )
 
             // console.log("results:", results);
             // return results;
+
+            // TEST
+            document.getElementById('nut_info').innerHTML = food_results[0].name;
+
             callback(results);
         },
         function(err) {

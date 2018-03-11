@@ -150,7 +150,6 @@ function addBoxes () {
     boxesAdded = true;
 }
 
-
 /******* camera support ********/
 function hasGetUserMedia() {
     return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -177,7 +176,6 @@ function analyzeObject(canvasObj) {
     var base64img = dataURL.split("base64,")[1];
 
     // predictUsingWorkflow(image, maxConcepts, minConfidence, callback)
-
     predictUsingWorkflow({base64: base64img}, 10, 0.90, processKeywords);
 
     isUploaded = true;
@@ -185,7 +183,6 @@ function analyzeObject(canvasObj) {
     // *** CLOUDINARY ***
     // upload to Cloudinary
 // uploadFile(dataURL);
-
 }
 
 var food_serving = ['fruit salad', 'pasta'];
@@ -212,9 +209,6 @@ function processKeywords(words) {
     var food_servings = getFoodServings(words.food);
     food_servings.concat(getFoodServings(words.general));
 
-
-
-
     // Display in AR
     // TODO: look for common concepts (or know needed concepts and look for them)
     // to check for 'accuracy'
@@ -222,8 +216,6 @@ function processKeywords(words) {
 
     if (food_servings.length > 0) {
         console.log("food servings:", food_servings);
-
-
 
         // e.g. 'fruit salad'
         // we don't want to individually get nutrition of strawberry, berry, etc.
@@ -248,11 +240,9 @@ function processKeywords(words) {
 
         // TODO: must have a way to determine multiple food items in photo (to get each one)
         // or just one item that resulted to different concepts (to get only one)
-
     }
 //        console.log("food servings:", getFoodServings(words.food));
 //        console.log("food servings:", getFoodServings(words.general));
-
 }
 
 function getCommon(arr1, arr2, attr) {
